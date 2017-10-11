@@ -17,6 +17,6 @@ RUN apk add --update openssl nodejs bash curl jq wget \
 
 COPY entrypoint.sh /
 
-RUN PATH=/opt/elasticsearch/bin:$PATH
+ENV PATH=/opt/elasticsearch/bin:$PATH
 
 CMD [ "/entrypoint.sh" ]
