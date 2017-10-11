@@ -1,2 +1,2 @@
 
-elasticsearch -Dcluster.name=test
+/bin/sh -c elasticsearch -Dcluster.name=test
