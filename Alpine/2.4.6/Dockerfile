@@ -15,3 +15,6 @@ RUN apk add --update openssl nodejs bash curl jq wget \
     && chown -R elastic /var/lib/elasticsearch /opt/$ES_NAME/plugins /opt/$ES_NAME/config/scripts
 
 
+COPY entrypoint.sh /
+
+CMD [ "/entrypoint.sh" ]
