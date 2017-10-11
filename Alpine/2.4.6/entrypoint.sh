@@ -1,0 +1,2 @@
+
+elasticsearch -Dcluster.name=test
