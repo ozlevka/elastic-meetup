@@ -4,7 +4,7 @@ ENV ES_NAME=elasticsearch \
 	ELASTICSEARCH_VERSION=2.4.1
 ENV ELASTICSEARCH_URL=https://download.elastic.co/$ES_NAME/$ES_NAME/$ES_NAME-$ELASTICSEARCH_VERSION.tar.gz
 
-RUN apt-get install -y --assume-yes openssl bash curl jq wget \
+RUN apt-get install -y --assume-yes openssl bash curl wget \
     && mkdir -p /opt \
     && echo '[i] Start create elasticsearch' \
     && wget -T 15 -O /tmp/$ES_NAME-$ELASTICSEARCH_VERSION.tar.gz $ELASTICSEARCH_URL \
