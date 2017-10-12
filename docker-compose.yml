@@ -3,7 +3,7 @@ version: "3.3"
 services:
   master: 
     image: ozlevka/elastic:5.6.3
-    command: ["exec", "su", "-","elastic", "-s", 
+    command: ["su", "-","elastic", "-s", 
               "/bin/sh", "-c", "'/opt/elasticsearch/bin/elasticsearch --E cluster.name=test --E network.host=0.0.0.0 --E discovery.zen.ping.unicast.hosts=master'"]
     ports:
       - "9200:9200"
