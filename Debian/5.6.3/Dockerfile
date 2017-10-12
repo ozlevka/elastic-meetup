@@ -1,8 +1,8 @@
 FROM java:8-jre
 
 ENV ES_NAME=elasticsearch \
-	ELASTICSEARCH_VERSION=2.4.1
-ENV ELASTICSEARCH_URL=https://download.elastic.co/$ES_NAME/$ES_NAME/$ES_NAME-$ELASTICSEARCH_VERSION.tar.gz
+	ELASTICSEARCH_VERSION=5.6.3
+ENV ELASTICSEARCH_URL=https://artifacts.elastic.co/downloads/$ES_NAME/$ES_NAME-$ELASTICSEARCH_VERSION.tar.gz
 
 RUN apt-get update && apt-get install -y --assume-yes openssl bash curl wget \
     && mkdir -p /opt \
@@ -18,5 +18,5 @@ RUN apt-get update && apt-get install -y --assume-yes openssl bash curl wget \
 COPY entrypoint.sh /
 
 ENV PATH=/opt/elasticsearch/bin:$PATH
-    
-CMD ["/bin/bash","./entrypoint.sh" ]
+
+CMD [ "/bin/bash","./entrypoint.sh" ]
