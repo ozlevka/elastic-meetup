@@ -19,4 +19,4 @@ COPY entrypoint.sh /
 
 ENV PATH=/opt/elasticsearch/bin:$PATH
 
-CMD ["entrypoint.sh" ]
+CMD ["./entrypoint.sh" ]
