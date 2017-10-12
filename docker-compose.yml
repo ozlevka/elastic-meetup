@@ -3,7 +3,7 @@ version: "3.3"
 services:
   master: 
     image: ozlevka/elastic:5.6.3
-    command: ["/bin/sh", "elasticsearch", "--E", "cluster.name=test", "--E", "network.host={{.HOST_IP}}"]
+    command: ["/bin/sh", "/opt/elasticsearch/bin/elasticsearch", "--E", "cluster.name=test", "--E", "network.host=0.0.0.0", "--E", "discovery.zen.ping.unicast.hosts=master"]
     ports:
       - "9200:9200"
     deploy:
@@ -11,6 +11,8 @@ services:
       placement:
         constraints:
           - node.labels.role == master
+    networks:
+      - elastic
 
 networks: 
   elastic:
