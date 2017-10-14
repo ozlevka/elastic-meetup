@@ -9,9 +9,6 @@ services:
       - "9200:9200"
     deploy:
       mode: global
-      placement:
-        constraints:
-          - node.labels.role == master
     networks:
       - elastic
 
