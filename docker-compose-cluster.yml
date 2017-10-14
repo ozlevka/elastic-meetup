@@ -25,6 +25,23 @@ services:
     networks:
       - elastic
 
+  proxy:
+    image: ozlevka/meetup-proxy:1.0
+    ports:
+      - 8080:8080
+    environment:
+      USER: "elastic"
+      PASS: "elastic_admin_17"
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - node.labels.role == proxy
+    networks:
+      - elastic
+
+
+
 networks: 
   elastic:
     driver: overlay
