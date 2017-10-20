@@ -14,7 +14,7 @@ RUN apk add --update openssl nodejs bash curl jq wget \
     && mkdir -p /var/lib/elasticsearch /opt/$ES_NAME/plugins /opt/$ES_NAME/config/scripts \
     && chown -R elastic /opt/$ES_NAME-$ELASTICSEARCH_VERSION/
 
-
+COPY jvm.options /opt/$ES_NAME-$ELASTICSEARCH_VERSION/config/
 COPY entrypoint.sh /
 
 ENV PATH=/opt/elasticsearch/bin:$PATH
