@@ -4,11 +4,13 @@ services:
   master: 
     image: ozlevka/elastic:5.6.3-deb
     environment:
-      - "ELASTIC_CMD_OPTIONS=--E network.host=_eth1_ --E discovery.zen.ping.unicast.hosts=master"
-    ports:
-      - "9200:9200"
+      - "ELASTIC_CMD_OPTIONS=--E network.host=_eth2_ --E discovery.zen.ping.unicast.hosts=master"
     deploy:
-      mode: global
+      replicas: 1
+      endpoint_mode: dnsrr
+      placement:
+         constraints:
+            - node.labels.master == yes
     networks:
       - elastic
 
