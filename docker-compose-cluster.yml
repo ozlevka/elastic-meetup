@@ -29,8 +29,6 @@ services:
       - elastic
 
 
-
-
 networks: 
   elastic:
     driver: overlay
