@@ -1,3 +1,8 @@
+#!/usr/bin/env bash
+
+docker pull docker.elastic.co/elasticsearch/elasticsearch:5.6.3
+
+docker build -t ozlevka/elastic:5.6.3 .
 
 sudo sysctl -w vm.max_map_count=262144
 
