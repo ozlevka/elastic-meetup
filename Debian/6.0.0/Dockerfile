@@ -15,8 +15,6 @@ RUN apt-get update && apt-get install -y --assume-yes openssl bash curl wget \
     && chown -R elastic /opt/$ES_NAME-$ELASTICSEARCH_VERSION/
 
 
-COPY entrypoint.sh /
-
 ENV PATH=/opt/elasticsearch/bin:$PATH
 
 USER elastic
