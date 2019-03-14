@@ -1,7 +1,7 @@
 FROM java:8-jre
 
 ENV ES_NAME=elasticsearch \
-	ELASTICSEARCH_VERSION=6.0.0-rc1
+	ELASTICSEARCH_VERSION=6.6.1
 ENV ELASTICSEARCH_URL=https://artifacts.elastic.co/downloads/$ES_NAME/$ES_NAME-$ELASTICSEARCH_VERSION.tar.gz
 
 RUN apt-get update && apt-get install -y --assume-yes openssl bash curl wget \
