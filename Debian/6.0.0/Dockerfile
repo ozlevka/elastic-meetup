@@ -19,4 +19,6 @@ COPY entrypoint.sh /
 
 ENV PATH=/opt/elasticsearch/bin:$PATH
 
-CMD [ "/bin/bash","./entrypoint.sh" ]
+USER elastic
+
+CMD [ "/bin/sh", "-c", "/opt/elasticsearch/bin/elasticsearch --E cluster.name=test --E network.host=0 $ELASTIC_CMD_OPTIONS" ]
