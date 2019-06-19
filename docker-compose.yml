@@ -1,27 +1,59 @@
 version: "3.3"
 
 services:
-  elastic:
-    image: ozlevka/elastic:5.6.3
+  elasticsearch:
+    image: amazon/opendistro-for-elasticsearch:0.9.0
+    container_name: elasticsearch
     environment:
-      - "ELASTIC_CMD_OPTIONS=--E network.host=0"
-    networks:
-      - default
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - opendistro_security.ssl.http.enabled=false
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata1:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
+    networks:
+      - esnet
+  
+  # elasticsearch2:
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:6.7.2
+  #   container_name: elasticsearch2
+  #   environment:
+  #     - cluster.name=docker-cluster
+  #     - bootstrap.memory_lock=true
+  #     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+  #     - "discovery.zen.ping.unicast.hosts=elasticsearch"
+  #   ulimits:
+  #     memlock:
+  #       soft: -1
+  #       hard: -1
+  #   volumes:
+  #     - esdata2:/usr/share/elasticsearch/data
+  #   networks:
+  #     - esnet
+
 
   kibana:
-    image: ozlevka/kibana:5.6.3
+    image: amazon/opendistro-for-elasticsearch-kibana:0.9.0
     environment:
-       - "KIBANA_CMD=-e http://elastic:9200"
-    networks:
-      - default
+       ELASTICSEARCH_URL: http://elasticsearch:9200
+       ELASTICSEARCH_HOSTS: http://elasticsearch:9200"
     links:
-      - elastic
+      - elasticsearch
     depends_on:
-      - elastic
+      - elasticsearch
     ports:
       - 5601:5601
+    networks:
+      - esnet
 
 networks: 
-  default:
+  esnet:
+
+volumes:
+  esdata1: 
