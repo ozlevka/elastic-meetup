@@ -2,26 +2,39 @@ version: "3.3"
 
 services:
   elastic:
-    image: ozlevka/elastic:5.6.3
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.1.1
     environment:
-      - "ELASTIC_CMD_OPTIONS=--E network.host=0"
+       - node.name=elastic
+       - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+       - discovery.seed_hosts=elastic
+       - cluster.name=elasticsearch
+       - cluster.initial_master_nodes=elastic
+       - bootstrap.memory_lock=true
+    volumes:
+        - /etc/localtime:/etc/localtime:ro
+        - /tmp/elastic:/data
     networks:
       - default
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
     ports:
-      - 9200:9200
+      - "9200:9200"
 
   kibana:
-    image: ozlevka/kibana:5.6.3
-    environment:
-       - "KIBANA_CMD=-e http://elastic:9200"
+    image: docker.elastic.co/kibana/kibana-oss:7.1.1
+    command: kibana -e http://elastic:9200
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "5601:5601"
     networks:
       - default
     links:
       - elastic
     depends_on:
       - elastic
-    ports:
-      - 5601:5601
 
 networks: 
   default:
